@@ -83,80 +83,80 @@ const SKILL_CATEGORIES = [
         skills: [
             { name: "Network Administration", icon: <ServerIcon/>, description: "Proficient in configuring and managing network infrastructure, including routers, switches, and firewalls to ensure optimal performance and security." },
             { name: "Virtualization", icon: <DatabaseIcon/>, description: "Experienced with virtualization technologies like VMware and Hyper-V to create and manage virtual machines, optimizing resource utilization." },
-            { name: "Cloud Computing (AWS)", icon: <ToolIcon/>, description: "Skilled in deploying and managing applications on AWS, utilizing services like EC2, S3, and RDS for scalable and reliable solutions." },
-            { name: "Scripting (Python/Bash)", icon: <CodeIcon/>, description: "Adept at writing scripts in Python and Bash to automate repetitive tasks, manage systems, and streamline workflows." },
-            { name: "Cybersecurity Fundamentals", icon: <ToolIcon/>, description: "Knowledgeable in basic cybersecurity principles, including threat detection, vulnerability assessment, and implementing security best practices." },
+            { name: "Data Resilinece (Redstor)", icon: <ToolIcon/>, description: "Establish and manage reliable Backup as a Service (BAAS) systems to guarantee rapid recovery and business continuity after any data loss event." },
+            { name: "Systems Administration", icon: <CodeIcon/>, description: "Adept at writing scripts in Python and Bash to automate repetitive tasks, manage systems, and streamline workflows." },
+            { name: "Cybersecurity Fundamentals", icon: <ToolIcon/>, description: "Knowledgeable in cybersecurity principles, including threat detection, vulnerability assessment, and implementing security best practices." },
         ]
     },
     {
         title: "Administration Skills",
         skills: [
-            { name: "IT Service Management (ITSM)", icon: <ClipboardIcon/>, description: "Familiar with ITSM frameworks like ITIL, focusing on delivering high-quality IT services that align with business needs." },
+            { name: "IT Service Management (ITSM)", icon: <ClipboardIcon/>, description: "Leveraging ITSM principles to guarantee high-quality service delivery, that includes managing the full lifecycle of support requests, incident resolution, change implementation, and IT asset management." },
             { name: "Project Management", icon: <ClipboardIcon/>, description: "Capable of planning, executing, and closing projects, ensuring they are completed on time, within budget, and to the required quality standards." },
-            { name: "System Monitoring", icon: <ToolIcon/>, description: "Experienced in using monitoring tools like Nagios and Zabbix to track system performance and ensure high availability and reliability." },
+            { name: "Data Center Administration", icon: <ToolIcon/>, description: "Ensure the uninterrupted performance and physical security of all mission-critical systems which includes: power, cooling, physical asset tracking, and environmental monitoring to maintain peak operational efficiency." },
             { name: "Documentation", icon: <BrushIcon/>, description: "Skilled in creating clear and comprehensive technical documentation, including system diagrams, user guides, and standard operating procedures." },
-            { name: "Vendor Management", icon: <UsersIcon/>, description: "Experienced in managing relationships with hardware and software vendors to procure necessary resources and support." },
+            { name: "Vendor Management", icon: <UsersIcon/>, description: "Experienced in managing relationships with third party vendors to procure necessary resources and support." },
         ]
     },
     {
         title: "Soft Skills",
         skills: [
-            { name: "Problem Solving", icon: <ToolIcon/>, description: "Strong analytical and critical thinking skills to effectively identify, analyze, and resolve complex technical issues." },
-            { name: "Team Collaboration", icon: <UsersIcon/>, description: "A proactive team player with excellent communication skills, fostering a collaborative environment to achieve shared goals." },
-            { name: "Communication", icon: <UsersIcon/>, description: "Able to clearly articulate technical concepts to both technical and non-technical audiences, both verbally and in writing." },
-            { name: "Time Management", icon: <ClipboardIcon/>, description: "Excellent organizational skills, with the ability to prioritize tasks, manage time effectively, and meet deadlines in a fast-paced environment." },
-            { name: "Adaptability", icon: <CodeIcon/>, description: "Quick to learn and adapt to new technologies, tools, and processes, embracing change to drive continuous improvement." },
+            { name: "Strategic Problem Resolution", icon: <ToolIcon/>, description: "Diagnosing root cause of critical system failures and implementing robust solutions that prevent recurrence to safeguard your business operations." },
+  { name: "Integrated Team Synergy", icon: <UsersIcon/>, description: "facilitate in cross-departmental collaboration on complex projects, ensuring all teams are aligned and working efficiently towards a common goal. This ensures project timelines are met and output quality." },
+  { name: "Stakeholder Communication & Clarity", icon: <UsersIcon/>, description: "Translating intricate technical project updates into clear, concise business language for executive reports and client presentations. This fosters transparency and enables confident decision-making." },
+  { name: "Project Delivery & Efficiency", icon: <ClipboardIcon/>, description: "Meticulously plan and execute projects proactively by identifying and mitigating potential roadblocks to ensure on-time delivery of your critical initiatives, ensuring projects are completed efficiently and within budget." },
         ]
     }
 ];
 const PROJECTS = [
     {
-        title: "E-commerce Platform",
-        description: "A full-featured e-commerce website with product listings, user authentication, and a Stripe-powered checkout process. Built with the MERN stack.",
+        title: "Detection and Analysis",
+        description: "Detection and analysis scripts automating the process of identifying and aradicating persistent processes on a Windows system.",
         overview: [
-            "This project is a comprehensive e-commerce solution built from the ground up using the MERN stack (MongoDB, Express, React, Node.js). It features a clean and modern user interface, robust backend services, and secure payment processing.",
-            "Key features include user registration and authentication with JWT, a dynamic product catalog with search and filtering capabilities, a shopping cart, and a seamless checkout experience powered by Stripe. The admin dashboard allows for easy product and order management.",
-            "The frontend is built with React and Redux for state management, providing a fast and responsive user experience. The backend API is designed following REST principles, ensuring scalability and maintainability."
+            "When a Windows system is successfully compromised, the threat actor's primary goal shifts from gaining access to maintaining access. They achieve this by establishing persistence, ensuring their malware packaged as a seemingly legitimate service or process—runs automatically every time the machine starts.",
+            "The presence of a persistent, unwanted malware is a high-fidelity Indicator of Compromise (IOC). While initial malware files (payloads) might be caught by antivirus, the running process allows the attacker to maintain a Command and Control (C2) channel, continuously communicating with external servers to receive new instructions, exfiltrate data, or deploy further malicious tools.",
+            "Therefore, this project focuses on the ability to identify these running processes, pinpoint their exact location on the system, and, most importantly, break the chain of persistence and communication. Without breaking persistence, the malware will simply restart upon the next reboot, rendering any file deletion useless. THe goal is to surgically isolate the threat (Containment), remove the threat's executable and startup entries (Eradication), and ensure it can never run again."
         ],
-        tags: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
-        imageUrl: "https://picsum.photos/seed/project1/800/600",
-        repoUrl: "#"
+        tags: ["Scripting", "Powershell", "Analysis", "Proccess Management", "Windows"],
+        imageUrl: "https://github.com/mwiti-m1k3/Portfolio/blob/main/images/Projects_3.png?raw=true",
+        repoUrl: "https://github.com/mwiti-m1k3/Cybersecurity/tree/main/Detection%20%26%20Analysis%3A%20Identifying%20and%20Eradicating%20Persistent%20Processes%20on%20Windows"
     },
     {
-        title: "Project Management Tool",
-        description: "A collaborative Kanban-style project management application. Users can create boards, lists, and cards, and drag-and-drop them to update status.",
+        title: "IPsweep",
+        description: "This project provides a reliable and efficient two-phase network scanning script for Linux systems, integrating Nmap for both host discovery and detailed port/service scanning.",
         overview: [
-            "This is a Trello-inspired project management tool designed for agile teams. Built with Next.js and Firebase, it offers real-time collaboration features, allowing multiple users to work on the same board simultaneously.",
-            "Users can create projects (boards), add task lists, and populate them with cards. A key feature is the drag-and-drop functionality, which allows for intuitive task management. The application uses Firebase's Firestore for its real-time database and Firebase Authentication for user management.",
-            "The interface is styled with Tailwind CSS for a clean and utility-first approach, and the application is fully responsive, providing a seamless experience on both desktop and mobile devices."
+            "This script aims to perform a fast initial IP sweep to identify active hosts within a specified subnet.",
+            "Execute a detailed Nmap port, service, and OS scan exclusively on those live hosts, saving time and resources and log all detailed scan results to a timestamped file for easy review and record-keeping.",
+            " The aim of this was to provide a robust, Linux-native approach to network reconnaissance using Nmap's powerful features."
         ],
-        tags: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase"],
-        imageUrl: "https://picsum.photos/seed/project2/800/600",
-        repoUrl: "#"
+        tags: ["Bash", "Nmap", "Linux"],
+        imageUrl: "https://github.com/mwiti-m1k3/Portfolio/blob/main/images/Projects_6.png?raw=true",
+        repoUrl: "https://github.com/mwiti-m1k3/Sysadmin_Projects/tree/main/IPsweep_script"
     },
     {
-        title: "Data Visualization Dashboard",
-        description: "An interactive dashboard for visualizing complex datasets using D3.js and React. Features various chart types and real-time data filtering.",
+        title: "Network Design and Implementation",
+        description: "Practical, step-by-step guides and configurations to help you understand, design, implement, and troubleshoot various networking solutions.",
         overview: [
-            "This dashboard provides an interactive and intuitive way to explore complex datasets. It leverages the power of D3.js for data visualization, integrated within a React application for a dynamic user experience.",
-            "The backend is a simple Python Flask server that provides data to the frontend via a REST API. The dashboard includes multiple chart types, such as bar charts, line graphs, and scatter plots, all of which are interactive. Users can filter data based on various parameters, and the visualizations update in real-time.",
-            "This project demonstrates the ability to combine powerful data visualization libraries with modern frontend frameworks to create compelling and informative data-driven applications."
+            "This Projects are designed to help anyone in persuit of learning the fundamentals of networking to have a hands on approach to learning and implementing those skills in a LAB enviroment.",
+            "The Packet tracer labs focuses on implementing the following concepts: DHCP, HSRP, Static Addressing, OSPF, Standard and Extended ACL, SSH, EtherChannel, Subnetting, VLAN, Trunking and Inter-VLAN Routing, NAT, Spanning Tree Protocol, and more.",
+            "This projects demonstrate the ability to combine various networking concepts to help design and implement a complex but resilient network that is both reliable and scalable."
         ],
-        tags: ["React", "D3.js", "Python", "Flask"],
-        imageUrl: "https://picsum.photos/seed/project3/800/600",
-        repoUrl: "#"
+        tags: ["Networking", "Packet Tracer", "CCNA"],
+        imageUrl: "https://github.com/mwiti-m1k3/Portfolio/blob/main/images/Projects_6.png?raw=true",
+        repoUrl: "https://github.com/mwiti-m1k3/Networking_Projects/tree/main/labs"
     },
     {
-        title: "Personal Blog",
-        description: "A statically generated blog using Next.js and Markdown for content. Optimized for performance and SEO with a clean, minimalist design.",
+        title: "IoT: Trucks Load Management System",
+        description: "A design and development of a load management system, that utilizes axle-mounted load cells to measure vehicle weight. Aimed at improving road safety and quality of roads damaged by overloaded vehicles.",
         overview: [
-            "This project is a high-performance, statically generated blog built with Next.js. Content is written in Markdown files, which are parsed at build time to create static HTML pages. This approach, known as the Jamstack, results in excellent performance, security, and SEO.",
-            "The blog features a minimalist design with a focus on readability. It includes syntax highlighting for code blocks and is fully responsive. The use of Next.js's static site generation (SSG) capabilities ensures that pages load almost instantly.",
-            "Deployment is handled by Vercel, which provides a seamless CI/CD pipeline. Pushing new content to the GitHub repository automatically triggers a new build and deployment, making content management incredibly simple."
+            "Maintaining good road safety and pavement quality is crucial since most goods distribution relies on land transport. A well-developed road network enhances transport efficiency, lowers operating costs like fuel and spare parts, and improves overall safety. Recognizing this need, I developed a load management system to address the issue of overloaded vehicles.",
+            "The core strategy of this system is to measure a vehicle's total weight by assessing the load exerted on its axles. This method allows for convenient weight measurement anywhere and includes a mechanism to stop overloaded trucks. Specifically, if a vehicle is overloaded, its engine will be prevented from starting or will stop if already running, effectively curbing the problem at its origin.",
+            "It features a communication component that can inform authorities, such as weighbridge personnel, via SMS or other integrated methods if a vehicle is overloaded. Consequently, all heavy vehicles equipped with this system can be easily and remotely monitored by weighbridge authorities. This capability significantly saves time and boosts the efficiency of weighbridge operations.",
+          "This project involved developing a simple device incorporating a weight measurement system. As a prototype case study, it was implemented using a load cell mounted on an 'axle' and an electric motor to simulate the vehicle’s engine. The system is built around an Arduino microcontroller using the load sensor for weight measurment, a buzzer and LED for alerts, a GSM module for SMS alerts, and the electric motor for engine simulation."
         ],
-        tags: ["Next.js", "Markdown", "Vercel"],
-        imageUrl: "https://picsum.photos/seed/project4/800/600",
-        repoUrl: "#"
+        tags: ["C++", "Arduino_Uno", "IoT", "GSM" ],
+        imageUrl: "https://github.com/mwiti-m1k3/Portfolio/blob/main/images/Projects_5.png?raw=true",
+        repoUrl: "https://github.com/mwiti-m1k3/Heavy-Truck-s-Load-Management-System"
     }
 ];
 const EXPERIENCE = [
