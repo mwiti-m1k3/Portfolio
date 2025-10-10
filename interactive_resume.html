@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume | Mike Mwiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application uses a tabbed, dashboard-style interface. The default 'Overview' tab provides an immediate, high-level synthesis of the candidate's profile through a skills distribution chart and a career timeline, targeting time-constrained recruiters. Subsequent tabs ('Experience' and 'Skills & Certs') allow for a deeper, more focused exploration of specific details. This structure was chosen to guide the user from a broad understanding to detailed analysis, making dense information digestible and preventing the "wall of text" common in traditional resumes. The interactive, non-linear navigation respects the user's need to quickly find relevant information. -->
+    <!-- Visualization & Content Choices: 1. Skills Breakdown (Source: Technical Skills section) -> Goal: Organize/Compare -> Viz: Doughnut Chart -> Interaction: Hover for details -> Justification: Provides a quick, visual summary of core competencies. Library: Chart.js. 2. Career Path (Source: Professional Experience) -> Goal: Show Change -> Viz: Vertical Timeline Diagram -> Interaction: Static visual for clarity -> Justification: Intuitively displays career progression and increasing responsibility. Method: HTML/Tailwind. 3. Job Details (Source: Professional Experience) -> Goal: Organize -> Viz: Two-panel master-detail layout -> Interaction: Click company name to show details -> Justification: Manages large blocks of text, keeping the UI clean and user-focused. Method: JS/HTML. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .experience-btn.active {
+            background-color: #E0E7FF;
+            color: #3B82F6;
+            border-left-color: #3B82F6;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #3B82F6;
+            border: 3px solid #E0E7FF;
+            left: -0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="app" class="container mx-auto p-4 sm:p-6 md:p-8 max-w-6xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Mike Mwiti</h1>
+            <p class="text-lg md:text-xl text-blue-600 mt-2">IT operations</p>
+            <div class="flex justify-center space-x-4 mt-4 text-sm text-gray-600">
+                <a href="mailto:mmichael6938@gmail.com" class="hover:text-blue-600">mmichael6938@gmail.com</a>
+                <span>|</span>
+                <a href="https://www.linkedin.com/in/mike-mwiti-79933921a" target="_blank" class="hover:text-blue-600">LinkedIn Profile</a>
+                <span>|</span>
+                <span>Nairobi, Kenya</span>
+            </div>
+        </header>
+
+        <nav class="flex justify-center mb-8 bg-white p-2 rounded-lg shadow-sm">
+            <div class="flex space-x-2 rounded-lg bg-gray-100 p-1">
+                <button class="tab-btn active py-2 px-4 rounded-md text-sm font-medium" data-tab="overview">Overview</button>
+                <button class="tab-btn py-2 px-4 rounded-md text-sm font-medium" data-tab="experience">Experience</button>
+                <button class="tab-btn py-2 px-4 rounded-md text-sm font-medium" data-tab="skills">Skills & Certs</button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="overview" class="content-section active">
+                <div class="text-center mb-12">
+                     <h2 class="text-2xl font-bold text-gray-800">Career Snapshot</h2>
+                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto">This overview provides a high-level summary of my professional journey and technical capabilities. Interact with the chart to see the distribution of skills, and follow the timeline to understand my career progression from foundational roles to specialized operations.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-700 text-center mb-4">Core Competency Distribution</h3>
+                        <div class="chart-container relative w-full max-w-sm mx-auto h-72 md:h-80">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                         <h3 class="text-lg font-semibold text-gray-700 text-center mb-6">Career Timeline</h3>
+                         <div class="relative pl-4 border-l-2 border-gray-200">
+                            <div class="timeline-item relative mb-8 pl-8">
+                                <p class="font-semibold text-blue-600">IT Data Centre Operations</p>
+                                <p class="text-sm text-gray-600">NTT DATA Middle East and Africa</p>
+                                <p class="text-xs text-gray-400">Oct 2023 - Present</p>
+                            </div>
+                            <div class="timeline-item relative mb-8 pl-8">
+                                <p class="font-semibold text-blue-600">System Administrator</p>
+                                <p class="text-sm text-gray-600">Fireside Group Ltd</p>
+                                <p class="text-xs text-gray-400">Sep 2022 - Feb 2023</p>
+                            </div>
+                            <div class="timeline-item relative pl-8">
+                                <p class="font-semibold text-blue-600">System Administrator | Intern</p>
+                                <p class="text-sm text-gray-600">Kenya Power</p>
+                                <p class="text-xs text-gray-400">May 2022 - Jul 2022</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-2xl font-bold text-gray-800">Professional Experience</h2>
+                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto">This section provides a detailed breakdown of my roles and responsibilities at previous companies. Select a company from the list on the left to view the specific contributions and achievements associated with that position.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/3 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200">
+                            <button class="experience-btn active w-full text-left p-4 border-l-4 border-transparent hover:bg-gray-200" data-experience="ntt">
+                                <p class="font-semibold">NTT DATA</p>
+                                <p class="text-sm text-gray-600">IT Data Centre Ops</p>
+                            </button>
+                            <button class="experience-btn w-full text-left p-4 border-l-4 border-transparent hover:bg-gray-200" data-experience="fireside">
+                                <p class="font-semibold">Fireside Group Ltd</p>
+                                <p class="text-sm text-gray-600">System Administrator</p>
+                            </button>
+                            <button class="experience-btn w-full text-left p-4 border-l-4 border-transparent hover:bg-gray-200" data-experience="kenya">
+                                <p class="font-semibold">Kenya Power</p>
+                                <p class="text-sm text-gray-600">System Admin Intern</p>
+                            </button>
+                        </div>
+                        <div class="w-full md:w-2/3 p-6">
+                            <div id="experience-details">
+                                <div class="experience-content active" data-experience-content="ntt">
+                                    <h3 class="text-xl font-bold text-gray-800">IT Data Centre Operations</h3>
+                                    <p class="text-sm text-gray-500 mb-4">Oct 2023 - Present</p>
+                                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                        <li>Provided first-line support for hardware, software, network issues, and Managed Virtualization Environments.</li>
+                                        <li>Managed and monitored Data Centre environmental conditions, performing essential software, hardware, and firmware upgrades.</li>
+                                        <li>Drove Incident and Problem Management, acting as situation manager for critical incidents and performing root cause analyses.</li>
+                                        <li>Coordinated with third-party vendors and served as remote/smart hands operator for customer access and audits.</li>
+                                        <li>Facilitated comprehensive documentation of customer solutions and support procedures.</li>
+                                        <li>Ensured full lifecycle management of IT assets and configured Physical Access Control and CCTV systems.</li>
+                                    </ul>
+                                </div>
+                                <div class="experience-content hidden" data-experience-content="fireside">
+                                    <h3 class="text-xl font-bold text-gray-800">System Administrator</h3>
+                                    <p class="text-sm text-gray-500 mb-4">Sep 2022 - Feb 2023</p>
+                                     <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                        <li>Administered core network infrastructure including access points, P2P links, and structured LAN/Ethernet cabling.</li>
+                                        <li>Installed, configured, and maintained critical services like Active Directory, email, and PABX/VoIP phone systems.</li>
+                                        <li>Provided rapid remote technical support and troubleshooting for software, hardware, and network incidents.</li>
+                                        <li>Managed installation and support for Linux, Windows, and Mac OS environments.</li>
+                                        <li>Oversaw Data Centre operations, including environmental control, UPS, fire suppression, and physical security.</li>
+                                        <li>Managed the lifecycle and inventory of end-user IT equipment and maintained CCTV surveillance systems.</li>
+                                    </ul>
+                                </div>
+                                <div class="experience-content hidden" data-experience-content="kenya">
+                                    <h3 class="text-xl font-bold text-gray-800">System Administrator | Intern</h3>
+                                    <p class="text-sm text-gray-500 mb-4">May 2022 - Jul 2022</p>
+                                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                        <li>Handled implementation and configuration of computer hardware, software, and network systems.</li>
+                                        <li>Delivered help desk and system administration support, ensuring timely resolution of technical issues.</li>
+                                        <li>Maintained robust data centre infrastructure, overseeing temperature, power, and security protocols.</li>
+                                        <li>Specialized in preventative maintenance and management of all organizational devices, including printers and computers.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills" class="content-section">
+                <div class="text-center mb-12">
+                     <h2 class="text-2xl font-bold text-gray-800">Technical Skills & Certifications</h2>
+                     <p class="mt-2 text-gray-600 max-w-2xl mx-auto">This section details the specific technologies and methodologies I am proficient in, alongside my professional certifications. The skills are grouped by area of expertise to provide a clear view of my capabilities.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg mb-3 text-blue-600">Administration & Operations</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>System Administration</li>
+                            <li>IT Service Management (ITSM)</li>
+                            <li>Data Center Management</li>
+                            <li>Virtualization Management</li>
+                            <li>Helpdesk Support</li>
+                            <li>Incident & Problem Management</li>
+                            <li>Asset Lifecycle Management</li>
+                        </ul>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg mb-3 text-blue-600">Networking & Security</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>Network Architecture</li>
+                            <li>Information Security Analysis</li>
+                            <li>CCNA Networking</li>
+                            <li>LAN/Ethernet Cabling</li>
+                            <li>Physical Access Control & CCTV</li>
+                            <li>PABX/VoIP (Yeastar)</li>
+                        </ul>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg mb-3 text-blue-600">Systems</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>Active Directory</li>
+                            <li>Linux</li>
+                            <li>Windows</li>
+                            <li>Mac OS</li>
+                            <li>Backup-as-a-Service (BaaS)</li>
+                            <li>UPS & Fire Suppression</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+                     <h3 class="text-xl font-bold text-center text-gray-800 mb-4">Certifications</h3>
+                     <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 text-center">
+                        <div class="p-4 rounded-lg">
+                            <p class="font-semibold">Google Cybersecurity</p>
+                        </div>
+                         <div class="p-4 rounded-lg">
+                            <p class="font-semibold">Google IT Support Certificate</p>
+                        </div>
+                         <div class="p-4 rounded-lg">
+                            <p class="font-semibold">Cisco Certified Network Associate (CCNA)</p>
+                        </div>
+                     </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+            const experienceBtns = document.querySelectorAll('.experience-btn');
+            const experienceContents = document.querySelectorAll('.experience-content');
+
+            const skillsData = {
+                labels: ['Administration & Operations', 'Networking & Security', 'Systems'],
+                datasets: [{
+                    label: 'Core Competencies',
+                    data: [7, 6, 6],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(249, 115, 22, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(249, 115, 22, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            };
+
+            const chartCtx = document.getElementById('skillsChart')?.getContext('2d');
+            if (chartCtx) {
+                new Chart(chartCtx, {
+                    type: 'doughnut',
+                    data: skillsData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 20,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => item.classList.remove('active'));
+                    tab.classList.add('active');
+                    const target = tab.getAttribute('data-tab');
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === target) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            experienceBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    experienceBtns.forEach(item => item.classList.remove('active'));
+                    btn.classList.add('active');
+                    const target = btn.getAttribute('data-experience');
+                    experienceContents.forEach(content => {
+                        content.classList.add('hidden');
+                        content.classList.remove('active');
+                         if (content.getAttribute('data-experience-content') === target) {
+                            content.classList.remove('hidden');
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
